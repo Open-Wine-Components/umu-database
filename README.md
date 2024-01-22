@@ -66,9 +66,9 @@ ulwgl-dauntless
 
 Example:  
 ```
-TITLE                   STORE    CODENAME  ULWGL_ID     NOTE (Optional)  
-Grand Theft Auto V      egs      TODO      ulwgl-271590  
-Grand Theft Auto V      none     none      ulwgl-271590 rockstar standalone  
+TITLE                   STORE    CODENAME                              ULWGL_ID     NOTE (Optional)
+Grand Theft Auto V      egs      9d2d0eb64d5c44529cece33fe2a46482      ulwgl-271590
+Grand Theft Auto V      none     none                                  ulwgl-271590 rockstar standalone
 ```
 
 4. Game titles must be correctly capitalized as they may be used in protonfixes to display text output. all other entries should be lower case. Database search queries should be cast to lower case and/or searched case insensitive.  
