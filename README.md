@@ -62,12 +62,12 @@ ulwgl-dauntless
 
 (3) You can have duplicate lines for the same game, just as long as the ulwgl ID is the same.
 
-Example:
+Example:  
 
-TITLE                   STORE    CODENAME  ULWGL_ID     NOTE (Optional)
-Grand Theft Auto V      egs      TODO      ulwgl-271590
-Grand Theft Auto V      none     none      ulwgl-271590 rockstar standalone
+TITLE                   STORE    CODENAME  ULWGL_ID     NOTE (Optional)  
+Grand Theft Auto V      egs      TODO      ulwgl-271590  
+Grand Theft Auto V      none     none      ulwgl-271590 rockstar standalone  
 
-(4) Game titles must be correctly capitalized as they may be used in protonfixes to display text output. all other entries should be lower case. Database search queries should be cast to lower case and/or searched case insensitive.
+(4) Game titles must be correctly capitalized as they may be used in protonfixes to display text output. all other entries should be lower case. Database search queries should be cast to lower case and/or searched case insensitive.  
 
 (5) If a game is standalone or does not belong to a major storefront, use 'none' as the store and codename. Protonfixes has several gamefixes directories for different stores. If no store and/or codename is specified it will search instead search the 'ULWGL' gamefixes directory instead of the store directory for the ULWGL ID.
