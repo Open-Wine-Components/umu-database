@@ -14,15 +14,15 @@ EGS:
 For EGS this is the codename used in the process when trying to launch the game (viewed via `ps aux`).
 
 Ex. Borderlands 3:
-
+```
 -com.epicgames.launcher://apps/Catnip?action=launch
-
+```
 Codename would be `Catnip`
 
 Ex. Fall Guys
-
+```
 -com.epicgames.launcher://apps/0a2d9f6403244d12969e11da6713137b?action=launch
-
+```
 Codename would be `0a2d9f6403244d12969e11da6713137b`
 
 GOG:
@@ -30,9 +30,9 @@ GOG:
 For GOG go to https://www.gogdb.org/, search the game title, find ID correlating to the title and Type 'Game'.
 
 Ex. Y's Origin
-
-https://www.gogdb.org/products?search=ys+origin
 ```
+https://www.gogdb.org/products?search=ys+origin
+
 ID         Name       Type
 1422357892 Ys Origin  Game
 ```
