@@ -74,3 +74,28 @@ Grand Theft Auto V      none     none                                  ulwgl-271
 4. Game titles must be correctly capitalized as they may be used in protonfixes to display text output. all other entries should be lower case. Database search queries should be cast to lower case and/or searched case insensitive.  
 
 5. If a game is standalone or does not belong to a major storefront, use 'none' as the store and codename. Protonfixes has several gamefixes directories for different stores. If no store and/or codename is specified it will search instead search the 'ULWGL' gamefixes directory instead of the store directory for the ULWGL ID.
+
+6. For games not on steam the second part of the ID should have at least one letter but preferably be a phrase thats easily understandable simply so that it's not parsed as a steam id. We perform a check on the second part of the ULWGL ID to determine if it's numeric or not. If it is, that part is sent as the steam ID to proton. Protonfixes prioritizes ULWGL_ID envvar, but proton itself uses SteamAppId for some game specific fixes directly.
+
+Ex from proton:
+
+```
+           if appid in [
+                "1341820", #As Dusk falls
+                "280790", #Creativerse
+                "306130", #The Elder Scrolls Online
+                "24010", #Train Simulator
+                "374320", #DARK SOULS III
+                "65500", #Aura: Fate of the Ages
+                "4000", #Garry's Mod
+                "383120", #Empyrion - Galactic Survival
+                "2371630", #Sword Art Online: Integral Factor
+                ]:
+            ret.add("gamedrive")
+```
+
+So, if say the game 'As Dusk falls' has both protonfixes and a proton official specific fix like above. It's ULWGL ID would be ulwgl-1341820 which gets passed to protonfixes, while the second part of that -- 1341820 gets parsed and passed as the SteamAppId/appid, this way it allows both Valve's fixes in their proton script (and their wine code) to work as well as our protonfixes.
+
+
+
+
