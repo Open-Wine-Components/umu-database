@@ -97,5 +97,7 @@ Ex from proton:
 So, if say the game 'As Dusk falls' has both protonfixes and a proton official specific fix like above. It's ULWGL ID would be ulwgl-1341820 which gets passed to protonfixes, while the second part of that -- 1341820 gets parsed and passed as the SteamAppId/appid, this way it allows both Valve's fixes in their proton script (and their wine code) to work as well as our protonfixes.
 
 
+7. The ONLY time the same game should have two different ULWGL IDs is if they are not from a major API-managed store front.
 
+For example, Genshin Impact has a standalone PC version and a "PlayPC" version. Neither of these are a major API managed storefront such as like EGS or Amazon etc. In this case they are treated as individual separate games within the ULWGL protonfixes folder, and thus they need separate IDs in the event that one may ever need different fixes from the other (ulwgl-genshin and ulwgl-genshin-playpc).
 
