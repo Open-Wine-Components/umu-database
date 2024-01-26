@@ -1,0 +1,19 @@
+TITLE,STORE,CODENAME,ULWGL_ID,COMMON ACRONYM (Optional),NOTE (Optional)
+Age of Wonders,gog,1207658883,ulwgl-61500,aow,
+Age of Wonders,humble,ageofwonders,ulwgl-61500,aow,
+Borderlands 3,egs,catnip,ulwgl-397540,bl3,
+Ys Origin,gog,1422357892,ulwgl-207350,,
+Ys Origin,humble,ysorigin,ulwgl-207350,,
+Grand Theft Auto V,egs,9d2d0eb64d5c44529cece33fe2a46482,ulwgl-271590,gtav,
+Grand Theft Auto V,none,none,ulwgl-271590,gtav,Standalone Rockstar installer
+Genshin Impact,egs,41869934302e4b8cafac2d3c0e7c293d,ulwgl-genshin,,
+Genshin Impact,none,none,ulwgl-genshin-playpc,,Play Store PC (https://github.com/Open-Wine-Components/ULWGL-database/pull/1#issuecomment-1907396689)
+Genshin Impact,none,none,ulwgl-genshin,,Standalone PC installer
+Red Dead Redemption 2,egs,heather,ulwgl-1174180,rdr2,
+Red Dead Redemption 2,none,none,ulwgl-1174180,rdr2,Standalone Rockstar installer
+Horizon Zero Dawn™ Complete Edition,gog,1209025141,ulwgl-1151640,,
+Horizon Zero Dawn™ Complete Edition,egs,grunion,ulwgl-1151640,,
+Alien Breed: Impact,gog,1905791638,ulwgl-22610,,
+Alien Breed 2: Assault,gog,1786995757,ulwgl-22650,,
+Alien Breed 3: Descent,gog,1743464065,ulwgl-22670,,
+Model 2 Emulator,none,none,ulwgl-model2,,https://segaretro.org/Model_2_Emulator
