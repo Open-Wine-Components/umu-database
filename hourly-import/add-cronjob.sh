@@ -2,7 +2,7 @@
 # This script will create a cron job
 
 # Define the cron job
-CRONJOB="0 * * * * $(which python) "$PWD"/ulwgl_import.py"
+CRONJOB="0 * * * * $(which python3) "$PWD"/ulwgl_import.py"
 
 # Add the cron job to the root user's crontab
 echo "$CRONJOB" | crontab -

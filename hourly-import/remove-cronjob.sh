@@ -2,7 +2,7 @@
 # This script will remove a specific cron job
 
 # Define the cron job to be removed
-CRONJOB="$(which python) "$PWD"/ulwgl_import.py"
+CRONJOB="$(which python3) "$PWD"/ulwgl_import.py"
 
 # Get the list of current cron jobs
 CURRENT_CRONS=$(crontab -l)
