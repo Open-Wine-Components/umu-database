@@ -53,12 +53,16 @@ if (isset($results)) {
         echo "-----------------------------";
         echo "<div>";
         echo "<h2>Result: " . $counter .  "</h2>";
-        echo "<p> Title: " . htmlspecialchars($result['title']) . "</p>";
+        echo "<p>Title: " . htmlspecialchars($result['title']) . "</p>";
         echo "<p>ULWGL ID: " . htmlspecialchars($result['ulwgl_id']) . "</p>";
         echo "<p>Store: " . htmlspecialchars($result['store']) . "</p>";
         echo "<p>Codename: " . htmlspecialchars($result['codename']) . "</p>";
         echo "<p>Common Acronym: " . htmlspecialchars($result['acronym']) . "</p>";
         echo "<p>Notes: " . htmlspecialchars($result['notes']) . "</p>";
+        if (htmlspecialchars($result['store']) == 'none') {
+                $result['store'] = 'ulwgl';
+        }
+        echo "<p>Protonfixes script: <a href=https://github.com/Open-Wine-Components/ULWGL-protonfixes/blob/master/gamefixes-" . htmlspecialchars($result['store']) . "/" . htmlspecialchars($result['ulwgl_id']) . ".py>" . htmlspecialchars($result['ulwgl_id']) . ".py</a></p>";
         echo "</div>";
         $counter++;
     }
