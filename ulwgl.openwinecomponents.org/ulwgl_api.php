@@ -26,38 +26,65 @@ function get_request_data() {
 
 // Utility function to send an API response
 function send_response($response, $code = 200) {
+    // Set the content type to JSON
+    header('Content-Type: application/json');
+
+    // Set the HTTP status code
     http_response_code($code);
-    die(json_encode($response));
+
+    // Encode the response array as a JSON string and print it
+    echo json_encode($response);
+
+    // Terminate the script execution
+    exit();
 }
 
-// Connect to the database
-// ... (same as before)
-
 // Check if the request method is GET and if the codename and store parameters are set
-if (get_method() === 'GET' && isset($_GET['codename'], $_GET['store'])) {
-    $codename = $_GET['codename'];
-    $store = $_GET['store'];
+if (get_method() === 'GET') {
+    $codename = isset($_GET['codename']) ? $_GET['codename'] : null;
+    $store = isset($_GET['store']) ? $_GET['store'] : null;
 
     // Prepare and execute the SQL statement
-    $stmt = $pdo->prepare("
-        SELECT g.title, gr.ulwgl_id
-        FROM gamerelease gr
-        INNER JOIN game g ON g.id = gr.ulwgl_id
-        WHERE gr.codename = :codename AND gr.store = :store
-    ");
-    $stmt->execute([':codename' => $codename, ':store' => $store]);
+    $sql = "SELECT g.title, gr.ulwgl_id, g.acronym, gr.codename, gr.store, gr.notes FROM gamerelease gr INNER JOIN game g ON g.id = gr.ulwgl_id";
+    $params = [];
+
+    if ($codename !== null) {
+        $sql .= " WHERE gr.codename = :codename";
+        $params[':codename'] = $codename;
+    }
+
+    if ($store !== null) {
+        if ($codename !== null) {
+            $sql .= " AND gr.store = :store";
+        } else {
+            $sql .= " WHERE gr.store = :store";
+        }
+        $params[':store'] = $store;
+    }
+
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($params);
     $results = $stmt->fetchAll();
 
     // Prepare the response
     $response = [];
     foreach ($results as $result) {
-        $response[] = ['title' => $result['title'], 'ulwgl_id' => $result['ulwgl_id']];
+        if ($codename !== null && $store !== null) {
+            $response[] = ['title' => $result['title'], 'ulwgl_id' => $result['ulwgl_id']];
+        } else {
+            $response[] = [
+                'title' => $result['title'],
+                'ulwgl_id' => $result['ulwgl_id'],
+                'acronym' => $result['acronym'],
+                'codename' => $result['codename'],
+                'store' => $result['store'],
+                'notes' => $result['notes']
+            ];
+        }
     }
-
     // Send the response
     send_response($response);
 } else {
     send_response(['error' => 'Invalid request'], 400);
 }
 ?>
-
