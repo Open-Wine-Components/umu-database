@@ -62,7 +62,14 @@ if (isset($results)) {
         if (htmlspecialchars($result['store']) == 'none') {
                 $result['store'] = 'ulwgl';
         }
-        echo "<p>Protonfixes script: <a href=https://github.com/Open-Wine-Components/ULWGL-protonfixes/blob/master/gamefixes-" . htmlspecialchars($result['store']) . "/" . htmlspecialchars($result['ulwgl_id']) . ".py>" . htmlspecialchars($result['ulwgl_id']) . ".py</a></p>";
+        $fileContents = file_get_contents("https://raw.githubusercontent.com/Open-Wine-Components/ULWGL-protonfixes/master/gamefixes-" . htmlspecialchars($result['store']) . "/" . htmlspecialchars($result['ulwgl_id']) . ".py");
+        if (!$fileContents) {
+               echo "<p>Protonfixes script: None</p>";
+        } else if (strpos($fileContents, 'gamefixes-steam') != false) {
+                echo "<p>Protonfixes script: <a href=\"https://github.com/Open-Wine-Components/ULWGL-protonfixes/blob/master/" . str_replace('../', '', $fileContents) . "\">" . htmlspecialchars($result['ulwgl_id']) . "</a></p>";
+        } else {
+                echo "<p>Protonfixes script: <a href=\"https://github.com/Open-Wine-Components/ULWGL-protonfixes/blob/master/gamefixes-" . htmlspecialchars($result['store']) . "/" . htmlspecialchars($result['ulwgl_id']) . ".py\">" . htmlspecialchars($result['ulwgl_id']) . "</a></p>";
+        }
         echo "</div>";
         $counter++;
     }
