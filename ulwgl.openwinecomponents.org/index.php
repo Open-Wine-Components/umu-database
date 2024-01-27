@@ -39,6 +39,10 @@ if (isset($_POST["search"])) {
         <input type="text" name="search" placeholder="Search Game Title..." required>
         <input type="submit" value="Search">
     </form>
+<p>Can't find a game? Help build our database here: </p>
+<p>Database: <a href="https://github.com/Open-Wine-Components/ULWGL-database/blob/main/ULWGL-database.csv">ULWGL-database.csv</a></p>
+<p>Database contribution guidelines: <a href="https://github.com/Open-Wine-Components/ULWGL-database/blob/main/README.md#rules-for-adding-ulwgl-id-entries">README.md#rules-for-adding-ulwgl-id-entries</a></p>
+<p>Data from the ULWGL-database.csv is pulled from our github and added hourly.</p>
 
     <?php
     // Display the search results
