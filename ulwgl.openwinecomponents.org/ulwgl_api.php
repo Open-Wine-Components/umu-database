@@ -40,9 +40,10 @@ if (get_method() === 'GET' && isset($_GET['codename'], $_GET['store'])) {
 
     // Prepare and execute the SQL statement
     $stmt = $pdo->prepare("
-        SELECT ulwgl_id
-        FROM gamerelease
-        WHERE codename LIKE :codename AND store LIKE :store
+        SELECT g.title, gr.ulwgl_id
+        FROM gamerelease gr
+        INNER JOIN game g ON g.id = gr.ulwgl_id
+        WHERE gr.codename = :codename AND gr.store = :store
     ");
     $stmt->execute([':codename' => $codename, ':store' => $store]);
     $results = $stmt->fetchAll();
@@ -50,7 +51,7 @@ if (get_method() === 'GET' && isset($_GET['codename'], $_GET['store'])) {
     // Prepare the response
     $response = [];
     foreach ($results as $result) {
-        $response[] = ['ulwgl_id' => $result['ulwgl_id']];
+        $response[] = ['title' => $result['title'], 'ulwgl_id' => $result['ulwgl_id']];
     }
 
     // Send the response
@@ -59,3 +60,4 @@ if (get_method() === 'GET' && isset($_GET['codename'], $_GET['store'])) {
     send_response(['error' => 'Invalid request'], 400);
 }
 ?>
+
