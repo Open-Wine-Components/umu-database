@@ -1,6 +1,10 @@
-Query examples:
+PHP Server host requirements:
+```
+apt install php-mysqlnd
+apt install php-curl php-dom php-gd php-imagick php-zip php-intl
+```
 
-php:
+PHP query example:
 ```
 <?php
 $url = "https://ulwgl.openwinecomponents.org/ulwgl_api.php?codename=codename&store=store";
@@ -12,7 +16,7 @@ foreach ($data as $item) {
 }
 ?>
 ```
-php using curl:
+PHP query example using curl:
 ```
 <?php
 $url = "https://ulwgl.openwinecomponents.org/ulwgl_api.php?codename=codename&store=store";
@@ -28,8 +32,11 @@ foreach ($data as $item) {
 }
 ?>
 ```
-python:
+
+Python query requirements:
 `pip install requests`
+
+Python query example:
 ```
 import requests
 
