@@ -33,6 +33,20 @@ if (isset($_POST["search"])) {
 <html>
 <head>
     <title>Game Search</title>
+    <style>
+      .results {
+        border: 1px solid black;
+      }
+      .results td {
+        text-align: left;
+        padding: 5px;
+      }
+      .results th {
+        text-align: left;
+        padding: 5px;
+        border-bottom: 1px solid black;
+      }
+    </style>
 </head>
 <body>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -43,39 +57,54 @@ if (isset($_POST["search"])) {
 <p>Database: <a href="https://github.com/Open-Wine-Components/ULWGL-database/blob/main/ULWGL-database.csv">ULWGL-database.csv</a></p>
 <p>Database contribution guidelines: <a href="https://github.com/Open-Wine-Components/ULWGL-database/blob/main/README.md#rules-for-adding-ulwgl-id-entries">README.md#rules-for-adding-ulwgl-id-entries</a></p>
 <p>Data from the ULWGL-database.csv is pulled from our github and added hourly.</p>
-
-    <?php
-    // Display the search results
+<?php
 if (isset($results)) {
      echo "<h1> Number of results: " . $stmt->rowCount() . "</h1>";
      $counter = 1;
-     foreach ($results as $result) {
-        echo "-----------------------------";
-        echo "<div>";
-        echo "<h2>Result: " . $counter .  "</h2>";
-        echo "<p>Title: " . htmlspecialchars($result['title']) . "</p>";
-        echo "<p>ULWGL ID: " . htmlspecialchars($result['ulwgl_id']) . "</p>";
-        echo "<p>Store: " . htmlspecialchars($result['store']) . "</p>";
-        echo "<p>Codename: " . htmlspecialchars($result['codename']) . "</p>";
-        echo "<p>Common Acronym: " . htmlspecialchars($result['acronym']) . "</p>";
-        echo "<p>Notes: " . htmlspecialchars($result['notes']) . "</p>";
-        if (htmlspecialchars($result['store']) == 'none') {
-                $result['store'] = 'ulwgl';
-        }
-        $fileContents = file_get_contents("https://raw.githubusercontent.com/Open-Wine-Components/ULWGL-protonfixes/master/gamefixes-" . htmlspecialchars($result['store']) . "/" . htmlspecialchars($result['ulwgl_id']) . ".py");
-        if (!$fileContents) {
-               echo "<p>Protonfixes script: None</p>";
-        } else if (strpos($fileContents, 'gamefixes-steam') != false) {
-                echo "<p>Protonfixes script: <a href=\"https://github.com/Open-Wine-Components/ULWGL-protonfixes/blob/master/" . str_replace('../', '', $fileContents) . "\">" . htmlspecialchars($result['ulwgl_id']) . "</a></p>";
-        } else {
-                echo "<p>Protonfixes script: <a href=\"https://github.com/Open-Wine-Components/ULWGL-protonfixes/blob/master/gamefixes-" . htmlspecialchars($result['store']) . "/" . htmlspecialchars($result['ulwgl_id']) . ".py\">" . htmlspecialchars($result['ulwgl_id']) . "</a></p>";
-        }
-        echo "</div>";
-        $counter++;
-    }
-} else {
-    echo "No results found";
 }
+?>
+<table class="results">
+    <tr>
+        <th></th>
+        <th>Title</th>
+        <th>ULWGL ID</th>
+        <th>Store</th>
+        <th>Codename</th>
+        <th>Acronym</th>
+        <th>Notes</th>
+        <th>Protonfixes Script</th>
+    </tr>
+    <?php
+    // Display the search results
+    if (isset($results)) {
+        foreach ($results as $result) {
+          echo "<tr>";
+          echo "<td>" . $counter . "</td>";
+          echo "<td>" . htmlspecialchars($result['title']) . "</td>";
+          echo "<td>" . htmlspecialchars($result['ulwgl_id']) . "</td>";
+          echo "<td>" . htmlspecialchars($result['store']) . "</td>";
+          echo "<td>" . htmlspecialchars($result['codename']) . "</td>";
+          echo "<td>" . htmlspecialchars($result['acronym']) . "</td>";
+          echo "<td>" . htmlspecialchars($result['notes']) . "</td>";
+
+          if (htmlspecialchars($result['store']) == 'none') {
+                $result['store'] = 'ulwgl';
+          }
+          $fileContents = file_get_contents("https://raw.githubusercontent.com/Open-Wine-Components/ULWGL-protonfixes/master/gamefixes-" . htmlspecialchars($result['store']) . "/" . htmlspecialchars($result['ulwgl_id']) . ".py");
+          if (!$fileContents) {
+            echo "<td>None</td>";
+          } else if (strpos($fileContents, 'gamefixes-steam') != false) {
+            echo "<td><a href=\"https://github.com/Open-Wine-Components/ULWGL-protonfixes/blob/master/" . str_replace('../', '', $fileContents) . "\">" . htmlspecialchars($result['ulwgl_id']) . "</a></td>";
+          } else {
+            echo "<td><a href=\"https://github.com/Open-Wine-Components/ULWGL-protonfixes/blob/master/gamefixes-" . htmlspecialchars($result['store']) . "/" . htmlspecialchars($result['ulwgl_id']) . ".py\">" . htmlspecialchars($result['ulwgl_id']) . "</a></td>";
+          }
+          echo "</tr>";
+          $counter++;
+      }
+    } else {
+      echo "No results found";
+    }
     ?>
+</table>
 </body>
 </html>
