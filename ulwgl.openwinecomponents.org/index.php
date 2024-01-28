@@ -59,7 +59,8 @@ if (isset($_POST["search"])) {
 <p>Data from the ULWGL-database.csv is pulled from our github and added hourly.</p>
 <?php
 if (isset($results)) {
-     echo "<h1> Number of results: " . $stmt->rowCount() . "</h1>";
+        echo "<h1>Search results for: " . $_POST["search"] . "</h1>";
+        echo "<h1> Number of results: " . $stmt->rowCount() . "</h1>";
      $counter = 1;
 }
 ?>
