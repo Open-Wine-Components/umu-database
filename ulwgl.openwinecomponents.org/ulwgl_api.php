@@ -43,6 +43,7 @@ function send_response($response, $code = 200) {
 if (get_method() === 'GET') {
     $codename = isset($_GET['codename']) ? $_GET['codename'] : null;
     $store = isset($_GET['store']) ? $_GET['store'] : null;
+    $ulwgl_id = isset($_GET['ulwgl_id']) ? $_GET['ulwgl_id'] : null;
 
     // Prepare and execute the SQL statement
     $sql = "SELECT g.title, gr.ulwgl_id, g.acronym, gr.codename, gr.store, gr.notes FROM gamerelease gr INNER JOIN game g ON g.id = gr.ulwgl_id";
@@ -62,6 +63,15 @@ if (get_method() === 'GET') {
         $params[':store'] = $store;
     }
 
+    if ($ulwgl_id !== null) {
+        if ($store !== null) {
+           $sql .= " AND gr.ulwgl_id = :ulwgl_id";
+        } else {
+           $sql .= " WHERE gr.ulwgl_id = :ulwgl_id";
+        }
+        $params[':ulwgl_id'] = $ulwgl_id;
+    }
+
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
     $results = $stmt->fetchAll();
@@ -71,6 +81,8 @@ if (get_method() === 'GET') {
     foreach ($results as $result) {
         if ($codename !== null && $store !== null) {
             $response[] = ['title' => $result['title'], 'ulwgl_id' => $result['ulwgl_id']];
+        } else if ($ulwgl_id !== null && $store !== null) {
+            $response[] = ['title' => $result['title']];
         } else {
             $response[] = [
                 'title' => $result['title'],
