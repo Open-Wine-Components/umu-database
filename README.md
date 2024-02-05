@@ -5,6 +5,36 @@ Information from the spreadsheet is piped into a ULWGL sql database which is the
 
 Typical useage would be for a tool to query the database using the codename and store type, and fetch the correlating game title and ulwgl id, then feed them into the ULWGL launcher.
 
+# Online database search:
+
+https://ulwgl.openwinecomponents.org
+
+# Current available database endpoints (results are in JSON format):
+
+List ALL entries:
+
+https://ulwgl.openwinecomponents.org/ulwgl_api.php
+
+List ALL entries based on STORE:
+
+https://ulwgl.openwinecomponents.org/ulwgl_api.php?store=SOME-STORE
+
+Get TITLE and ULWGL_ID based on STORE and CODENAME:
+
+https://ulwgl.openwinecomponents.org/ulwgl_api.php?store=SOME-STORE&codename=SOME-CODENAME-OR-APP-ID
+
+Get ALL GAME VALUES based on CODENAME:
+
+https://ulwgl.openwinecomponents.org/ulwgl_api.php?codename=SOME-CODENAME-OR-APP-ID
+
+Get TITLE based on ULWGL_ID and STORE:
+
+https://ulwgl.openwinecomponents.org/ulwgl_api.php?ulwgl_id=SOME-ULWGL-ID&store=SOME-STORE-OR-NONE
+
+Get ALL GAME VALUES AND ENTRIES based on ULWGL_ID:
+
+https://ulwgl.openwinecomponents.org/ulwgl_api.php?ulwgl_id=SOME-ULWGL-ID
+
 # Rules for adding ulwgl id entries:
 
 1. Determine the codename for the game depending on it's store.
