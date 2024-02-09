@@ -20,7 +20,7 @@ Amazon:
 - Steam release auto import possible with [amazon-import.py](./tools/amazon-import.py)
 
 
-For each store you can obtain somewhat accurate results Using [gamesdb.py](./tools/gamesdb.py).  
+For each store you can obtain somewhat accurate results using [gamesdb.py](./tools/gamesdb.py).  
 
 TODO:
 Add more sources for Humble, EA, Battlenet, Ubisoft, itch.io
