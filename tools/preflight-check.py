@@ -8,7 +8,7 @@ def main():
     with open(file, 'r') as csvfile:
         rows = csv.reader(csvfile)
         header = True
-        id_title_map = dict()
+        release_ids = list()
         for i, row in enumerate(rows, 1):
             if header:
                 header = False
@@ -27,13 +27,13 @@ def main():
                 print("At least one of the required fields is missing, in row:", i)
                 exit(1)
 
-            # Check if we have the same title for all entries with same ulwgl-id
-            # Import ignores the case when adding new entries
-            if ulwgl_id in id_title_map and id_title_map[ulwgl_id].lower() != title.lower():
-                print("Different title for same ulwgl_id found", id_title_map[ulwgl_id], title, ulwgl_id)
+            if store == "none" and codename == "none":
+                continue
+            release_id = f"{store}_{codename}"
+            if release_id in release_ids:
+                print("Duplicate entry found", title, store, codename)
                 exit(1)
-            else:
-                id_title_map.update({ulwgl_id: title})
+            release_ids.append(release_id)
 
 
 if __name__ == "__main__":
