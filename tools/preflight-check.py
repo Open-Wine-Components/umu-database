@@ -3,6 +3,8 @@
 import sys
 import csv
 
+SUPPORTED_STORES = ["amazon", "battlenet", "none", "egs", "ubisoft", "ea", "humble", "itchio", "steam", "gog", "zoomplatform"]
+
 def main():
     file = sys.argv[1]
     with open(file, 'r') as csvfile:
@@ -27,11 +29,15 @@ def main():
                 print("At least one of the required fields is missing, in row:", i)
                 exit(1)
 
+            if store not in SUPPORTED_STORES:
+                print("Invalid store provided", store, "in row", i)
+                exit(1)
+
             if store == "none" and codename == "none":
                 continue
             release_id = f"{store}_{codename}"
             if release_id in release_ids:
-                print("Duplicate entry found", title, store, codename)
+                print("Duplicate entry found", title, store, codename, "in row", i)
                 exit(1)
             release_ids.append(release_id)
 
