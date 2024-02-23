@@ -1,0 +1,15 @@
+name: Data check
+on:
+  push:
+    paths:
+      - '**.csv'
+  pull_request:
+    paths:
+      - '**.csv'
+jobs:
+  check-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./tools/preflight-check.py ./ULWGL-database.csv
+

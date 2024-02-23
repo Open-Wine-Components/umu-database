@@ -21,3 +21,6 @@ Here is the set of tools for easier database maintenance and quickly searching o
 
     Make sure to run `nile library sync` before import to ensure latest metadata
 
+- [preflight-check.py](./preflight-check.py)
+
+    makes sure the csv is valid, used in GitHub action on each push
