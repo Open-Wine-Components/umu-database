@@ -44,12 +44,14 @@ def main():
             steam = game['product']['productDetail']['details']['websites']['steam']
         except KeyError:
             continue
+        if game['product']['id'] in game_ids:
+            continue
         parts = steam.split('/')
         steamid = parts[4]
         title = game['product']['title']
         if ',' in title:
             title = '"' + title + '"'
-        print(f"{title},amazon,{game['id']},ulwgl-{steamid},,")
+        print(f"{title},amazon,{game['product']['id']},ulwgl-{steamid},,")
 
 if __name__=="__main__":
     main()

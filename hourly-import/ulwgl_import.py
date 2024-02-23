@@ -22,7 +22,7 @@ cursor = connection.cursor()
 for index, row in df2.iterrows():
 
     # Check if 'title' exists in 'game'
-    cursor.execute("SELECT * FROM game WHERE title=%s", (row['TITLE'],))
+    cursor.execute("SELECT * FROM game WHERE id=%s", (row['ULWGL_ID'],))
     result = cursor.fetchone()
     if result:
         # Check if 'ulwgl_id', 'codename', and 'store' exist in 'gamerelease'
