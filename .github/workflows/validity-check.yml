@@ -3,6 +3,9 @@ on:
   push:
     paths:
       - '**.csv'
+  pull_request:
+    paths:
+      - '**.csv'
 jobs:
   check-data:
     runs-on: ubuntu-latest
