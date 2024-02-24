@@ -4,7 +4,7 @@ Here is the set of tools for easier database maintenance and quickly searching o
 
 - [gamesdb.py](./gamesdb.py) 
     
-    > [!WARNING]
+    > [!WARNING]  
     > Use this only as a hint, always make sure you can confirm that the data is valid
 
     display external releases of games by title from GOG Galaxy's API  

@@ -9,7 +9,7 @@ import datetime
 import json
 
 # https://galaxy-integrations-python-api.readthedocs.io/en/latest/platforms.html
-PLATFORM_WHITELIST = set(["steam", "amazon", "battlenet", "origin", "epic", "humble", "itch", "gog"])
+PLATFORM_WHITELIST = set(["steam", "amazon", "battlenet", "origin", "epic", "humble", "itch", "gog", "uplay"])
 
 def main():
     try:
