@@ -10,8 +10,8 @@ Epic Games:
 Steam:
 https://steamdb.info
 Notes:
-- We don't make ulwgl entries for steam games, but we do make protonfixes. As stated
-in the rules, ulwgl IDs are referenced to steam IDs if both a steam and non-steam
+- We don't make umu entries for steam games, but we do make protonfixes. As stated
+in the rules, umu IDs are referenced to steam IDs if both a steam and non-steam
 version of the game exists, and the non-steam game versions are symlinked to 
 the steam version protonfixes,so It's useful to check if a steam version exists.
 

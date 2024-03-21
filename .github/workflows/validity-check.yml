@@ -11,5 +11,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: ./tools/preflight-check.py ./ULWGL-database.csv
+      - run: ./tools/preflight-check.py ./umu-database.csv
 

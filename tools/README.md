@@ -1,4 +1,4 @@
-# ULWGL tools
+# umu tools
 
 Here is the set of tools for easier database maintenance and quickly searching of releases across different stores
 

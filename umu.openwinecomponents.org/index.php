@@ -18,9 +18,9 @@ try {
 // Check if form has been submitted
 if (isset($_POST["search"])) {
     $stmt = $pdo->prepare("
-        SELECT g.title, g.acronym, gr.ulwgl_id, gr.store, gr.codename, gr.notes
+        SELECT g.title, g.acronym, gr.umu_id, gr.store, gr.codename, gr.notes
         FROM game g
-        INNER JOIN gamerelease gr ON g.id = gr.ulwgl_id
+        INNER JOIN gamerelease gr ON g.id = gr.umu_id
         WHERE g.title LIKE :search OR g.acronym LIKE :search OR gr.codename LIKE :search
     ");
     $stmt->execute([":search" => "%".$_POST["search"]."%"]);
@@ -54,9 +54,9 @@ if (isset($_POST["search"])) {
         <input type="submit" value="Search">
     </form>
 <p>Can't find a game? Help build our database here: </p>
-<p>Database: <a href="https://github.com/Open-Wine-Components/ULWGL-database/blob/main/ULWGL-database.csv">ULWGL-database.csv</a></p>
-<p>Database contribution guidelines: <a href="https://github.com/Open-Wine-Components/ULWGL-database/blob/main/README.md#rules-for-adding-ulwgl-id-entries">README.md#rules-for-adding-ulwgl-id-entries</a></p>
-<p>Data from the ULWGL-database.csv is pulled from our github and added hourly.</p>
+<p>Database: <a href="https://github.com/Open-Wine-Components/umu-database/blob/main/umu-database.csv">umu-database.csv</a></p>
+<p>Database contribution guidelines: <a href="https://github.com/Open-Wine-Components/umu-database/blob/main/README.md#rules-for-adding-umu-id-entries">README.md#rules-for-adding-umu-id-entries</a></p>
+<p>Data from the umu-database.csv is pulled from our github and added hourly.</p>
 <?php
 if (isset($results)) {
         echo "<h1>Search results for: " . $_POST["search"] . "</h1>";
@@ -68,7 +68,7 @@ if (isset($results)) {
     <tr>
         <th></th>
         <th>Title</th>
-        <th>ULWGL ID</th>
+        <th>UMU ID</th>
         <th>Store</th>
         <th>Codename</th>
         <th>Acronym</th>
@@ -82,22 +82,22 @@ if (isset($results)) {
           echo "<tr>";
           echo "<td>" . $counter . "</td>";
           echo "<td>" . htmlspecialchars($result['title']) . "</td>";
-          echo "<td>" . htmlspecialchars($result['ulwgl_id']) . "</td>";
+          echo "<td>" . htmlspecialchars($result['umu_id']) . "</td>";
           echo "<td>" . htmlspecialchars($result['store']) . "</td>";
           echo "<td>" . htmlspecialchars($result['codename']) . "</td>";
           echo "<td>" . htmlspecialchars($result['acronym']) . "</td>";
           echo "<td>" . htmlspecialchars($result['notes']) . "</td>";
 
           if (htmlspecialchars($result['store']) == 'none') {
-                $result['store'] = 'ulwgl';
+                $result['store'] = 'umu';
           }
-          $fileContents = file_get_contents("https://raw.githubusercontent.com/Open-Wine-Components/ULWGL-protonfixes/master/gamefixes-" . htmlspecialchars($result['store']) . "/" . htmlspecialchars($result['ulwgl_id']) . ".py");
+          $fileContents = file_get_contents("https://raw.githubusercontent.com/Open-Wine-Components/umu-protonfixes/master/gamefixes-" . htmlspecialchars($result['store']) . "/" . htmlspecialchars($result['umu_id']) . ".py");
           if (!$fileContents) {
             echo "<td>None</td>";
           } else if (strpos($fileContents, 'gamefixes-steam') != false) {
-            echo "<td><a href=\"https://github.com/Open-Wine-Components/ULWGL-protonfixes/blob/master/" . str_replace('../', '', $fileContents) . "\">" . htmlspecialchars($result['ulwgl_id']) . "</a></td>";
+            echo "<td><a href=\"https://github.com/Open-Wine-Components/umu-protonfixes/blob/master/" . str_replace('../', '', $fileContents) . "\">" . htmlspecialchars($result['umu_id']) . "</a></td>";
           } else {
-            echo "<td><a href=\"https://github.com/Open-Wine-Components/ULWGL-protonfixes/blob/master/gamefixes-" . htmlspecialchars($result['store']) . "/" . htmlspecialchars($result['ulwgl_id']) . ".py\">" . htmlspecialchars($result['ulwgl_id']) . "</a></td>";
+            echo "<td><a href=\"https://github.com/Open-Wine-Components/umu-protonfixes/blob/master/gamefixes-" . htmlspecialchars($result['store']) . "/" . htmlspecialchars($result['umu_id']) . ".py\">" . htmlspecialchars($result['umu_id']) . "</a></td>";
           }
           echo "</tr>";
           $counter++;

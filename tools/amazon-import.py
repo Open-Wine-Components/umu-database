@@ -51,7 +51,7 @@ def main():
         title = game['product']['title']
         if ',' in title:
             title = '"' + title + '"'
-        print(f"{title},amazon,{game['product']['id']},ulwgl-{steamid},,")
+        print(f"{title},amazon,{game['product']['id']},umu-{steamid},,")
 
 if __name__=="__main__":
     main()

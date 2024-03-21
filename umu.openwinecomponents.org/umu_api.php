@@ -43,10 +43,10 @@ function send_response($response, $code = 200) {
 if (get_method() === 'GET') {
     $codename = isset($_GET['codename']) ? $_GET['codename'] : null;
     $store = isset($_GET['store']) ? $_GET['store'] : null;
-    $ulwgl_id = isset($_GET['ulwgl_id']) ? $_GET['ulwgl_id'] : null;
+    $umu_id = isset($_GET['umu_id']) ? $_GET['umu_id'] : null;
 
     // Prepare and execute the SQL statement
-    $sql = "SELECT g.title, gr.ulwgl_id, g.acronym, gr.codename, gr.store, gr.notes FROM gamerelease gr INNER JOIN game g ON g.id = gr.ulwgl_id";
+    $sql = "SELECT g.title, gr.umu_id, g.acronym, gr.codename, gr.store, gr.notes FROM gamerelease gr INNER JOIN game g ON g.id = gr.umu_id";
     $params = [];
 
     if ($codename !== null) {
@@ -63,13 +63,13 @@ if (get_method() === 'GET') {
         $params[':store'] = $store;
     }
 
-    if ($ulwgl_id !== null) {
+    if ($umu_id !== null) {
         if ($store !== null) {
-           $sql .= " AND gr.ulwgl_id = :ulwgl_id";
+           $sql .= " AND gr.umu_id = :umu_id";
         } else {
-           $sql .= " WHERE gr.ulwgl_id = :ulwgl_id";
+           $sql .= " WHERE gr.umu_id = :umu_id";
         }
-        $params[':ulwgl_id'] = $ulwgl_id;
+        $params[':umu_id'] = $umu_id;
     }
 
     $stmt = $pdo->prepare($sql);
@@ -80,13 +80,13 @@ if (get_method() === 'GET') {
     $response = [];
     foreach ($results as $result) {
         if ($codename !== null && $store !== null) {
-            $response[] = ['title' => $result['title'], 'ulwgl_id' => $result['ulwgl_id']];
-        } else if ($ulwgl_id !== null && $store !== null) {
+            $response[] = ['title' => $result['title'], 'umu_id' => $result['umu_id']];
+        } else if ($umu_id !== null && $store !== null) {
             $response[] = ['title' => $result['title']];
         } else {
             $response[] = [
                 'title' => $result['title'],
-                'ulwgl_id' => $result['ulwgl_id'],
+                'umu_id' => $result['umu_id'],
                 'acronym' => $result['acronym'],
                 'codename' => $result['codename'],
                 'store' => $result['store'],

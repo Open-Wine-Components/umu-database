@@ -23,9 +23,9 @@ def main():
             title = row[0]
             store = row[1]
             codename = row[2]
-            ulwgl_id = row[3]
+            umu_id = row[3]
 
-            if not (title and store and codename and ulwgl_id):
+            if not (title and store and codename and umu_id):
                 print("At least one of the required fields is missing, in row:", i)
                 exit(1)
 

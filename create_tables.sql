@@ -5,7 +5,7 @@ CREATE TABLE game (
 );
 
 CREATE TABLE gamerelease (
-    ulgwl_id VARCHAR(255) REFERENCES game(id),
+    umu_id VARCHAR(255) REFERENCES game(id),
     codename VARCHAR(255),
     store VARCHAR(255),
     notes TEXT
