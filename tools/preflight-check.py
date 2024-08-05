@@ -40,7 +40,7 @@ def main():
                 continue
 
             if store not in SUPPORTED_STORES:
-                print(f"::error file={filename},line={i}::Invalid store provided {store}")
+                print(f"::error file={filename},line={i}::Invalid store provided '{store}'")
                 has_error = True
                 continue
 
@@ -48,7 +48,7 @@ def main():
                 continue
             release_id = f"{store}_{codename}"
             if release_id in release_ids:
-                print(f"::error file={filename},line={i}::Duplicate entry found {title}, {store}, {codename}")
+                print(f"::error file={filename},line={i}::Duplicate entry found '{title}, {store}, {codename}'")
                 has_error = True
                 continue
             release_ids.append(release_id)
