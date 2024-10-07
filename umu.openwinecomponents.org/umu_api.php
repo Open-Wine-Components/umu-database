@@ -44,6 +44,7 @@ if (get_method() === 'GET') {
     $codename = isset($_GET['codename']) ? $_GET['codename'] : null;
     $store = isset($_GET['store']) ? $_GET['store'] : null;
     $umu_id = isset($_GET['umu_id']) ? $_GET['umu_id'] : null;
+    $title = isset($_GET['title']) ? $_GET['title'] : null;
 
     // Prepare and execute the SQL statement
     $sql = "SELECT g.title, gr.umu_id, g.acronym, gr.codename, gr.store, gr.notes FROM gamerelease gr INNER JOIN game g ON g.id = gr.umu_id";
@@ -65,11 +66,20 @@ if (get_method() === 'GET') {
 
     if ($umu_id !== null) {
         if ($store !== null) {
-           $sql .= " AND gr.umu_id = :umu_id";
+            $sql .= " AND gr.umu_id = :umu_id";
         } else {
-           $sql .= " WHERE gr.umu_id = :umu_id";
+            $sql .= " WHERE gr.umu_id = :umu_id";
         }
         $params[':umu_id'] = $umu_id;
+    }
+
+    if ($title !== null) {
+        if ($store !== null) {
+            $sql .= " AND g.title = :title";
+        } else {
+            $sql .= " WHERE g.title = :title AND gr.store = 'none'";
+        }
+        $params[':title'] = $title;
     }
 
     $stmt = $pdo->prepare($sql);
@@ -83,6 +93,8 @@ if (get_method() === 'GET') {
             $response[] = ['title' => $result['title'], 'umu_id' => $result['umu_id']];
         } else if ($umu_id !== null && $store !== null) {
             $response[] = ['title' => $result['title']];
+        } else if ($title !== null) {
+            $response[] = ['umu_id' => $result['umu_id']];
         } else {
             $response[] = [
                 'title' => $result['title'],
@@ -100,3 +112,4 @@ if (get_method() === 'GET') {
     send_response(['error' => 'Invalid request'], 400);
 }
 ?>
+

@@ -35,6 +35,14 @@ Get ALL GAME VALUES AND ENTRIES based on UMU_ID:
 
 https://umu.openwinecomponents.org/umu_api.php?umu_id=SOME-UMU-ID
 
+Get UMU_ID based on TITLE and STORE:
+
+https://umu.openwinecomponents.org/umu_api.php?title=SOME-GAME-TITLE&STORE=SOME-STORE
+
+Get UMU_ID based on TITLE and no store:
+
+https://umu.openwinecomponents.org/umu_api.php?title=SOME-GAME-TITLE
+
 # Rules for adding umu id entries:
 
 1. Determine the codename for the game depending on it's store.
