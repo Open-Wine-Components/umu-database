@@ -41,7 +41,7 @@ Python query example:
 import requests
 
 # Define the base URL of the API endpoint
-base_url = https://umu.openwinecomponents.org/umu_api.php"
+base_url = "https://umu.openwinecomponents.org/umu_api.php"
 
 # Define the parameters for the GET request
 params = {"codename": "codename", "store": "store"}
@@ -54,5 +54,5 @@ data = response.json()
 
 # Print the data
 for item in data:
-    print(f"Title: {item['title']}, ULGWL ID: {item['ulgwl_id']}")
+    print(f"Title: {item['title']}, UMU ID: {item['umu_id']}")
 ```
