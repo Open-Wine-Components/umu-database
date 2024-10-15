@@ -173,3 +173,12 @@ Red Dead Redemption 2   none     none                  �
 * The same applies here. Each different non-steam version protonfix -should- be a symlink to the steam version protonfix UNLESS it requires different fixes.
 
 If no store and/or codename is specified it will search instead search the 'umu' gamefixes directory instead of the store directory for the UMU ID.
+
+
+5\. Optionally include a commonly used acronym for the game:
+
+* For example "WoW" is an acronym for World of Warcraft (or also World of Warships)
+
+6\. Optionally include a note:
+
+* For example Genshin Impact has two standalone versions. One from Hoyo, one from PlayPC. Leave a note stating which one it is.
