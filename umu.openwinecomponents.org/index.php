@@ -34,6 +34,10 @@ if (isset($_POST["search"])) {
 <head>
     <title>Game Search</title>
     <style>
+      html {
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+      }
+
       .results {
         border: 1px solid black;
       }
