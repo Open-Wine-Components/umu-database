@@ -129,7 +129,7 @@ What store does the game come from? GOG? Epic (egs)? Battlenet? Amazon?
     Examples for standalone games:
 
     Genshin Impact (standalone version):
-    `umu-genshinimpact`
+    `umu-genshin`
 
 -   For games not on Steam the second part of the ID should have at least one letter, but preferably be a phrase that's easily understandable simply so that it's not parsed as a Steam ID. We perform a check on the second part of the umu ID to determine if it's numeric or not. If it is, that part is sent as the Steam ID to Proton. Protonfixes prioritizes the UMU_ID environment variable, but Proton itself uses SteamAppId for some game-specific fixes directly. So, if say the game As Dusk Falls has both protonfixes and an official Proton-specific fix. It's umu ID would be umu-1341820, which gets passed to protonfixes, while the second part of that (1341820) gets parsed and passed as the app ID (SteamAppId). This way, it allows both Valve's fixes in their proton script (and their wine code) to work as well as our protonfixes.
 
