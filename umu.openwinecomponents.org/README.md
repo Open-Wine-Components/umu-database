@@ -12,7 +12,7 @@ $response = file_get_contents($url);
 $data = json_decode($response, true);
 
 foreach ($data as $item) {
-    echo $item['ulgwl_id'];
+    echo $item['umu_id'];
 }
 ?>
 ```
@@ -28,7 +28,7 @@ curl_close($ch);
 $data = json_decode($response, true);
 
 foreach ($data as $item) {
-    echo $item['ulgwl_id'];
+    echo $item['umu_id'];
 }
 ?>
 ```
