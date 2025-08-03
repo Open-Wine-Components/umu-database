@@ -1107,3 +1107,4 @@ Chronology,gog,1207664613,umu-269330,,DRM free release of Chronology
 MudRunner,egs,Bulbul,umu-675010,,
 Guild Wars 2,egs,10cab3b738244873bacb8ec7cef8128c,umu-1284210,gw2,Epic Games Store release of Guild Wars 2
 Guild Wars 2,none,none,umu-1284210,gw2,Standalone release of Guild Wars 2
+Atlantis: The Lost Empire – Trial by Fire,none,umu-atlantis-trial-by-fire,,work with umu-launcher v1.2.9 with proton-ge 9.0-4e. You need to setup keyboard controls first and mouse sensitivity to the lowest. After loading and during briefing of mission have to reput focus by clicking on text not directly on resume. Else you will need to lost focus by returning on desktop and return on game then click somewhere but not directly on resume to restore focus. SOmetimes loading can be stuck, please try to not push any touch during it or try to reload previous mission. Don't work with proton-ge 10-10
