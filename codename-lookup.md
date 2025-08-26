@@ -5,7 +5,9 @@ Notes:
 - Only use those marked Type: Game
 
 Epic Games:
--  AppNames can only be obtained when owning the game
+-  https://erri120.github.io/egs-db/
+Notes:
+- ID value is the codename
 
 Steam:
 https://steamdb.info
