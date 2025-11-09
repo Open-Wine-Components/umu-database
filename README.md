@@ -75,21 +75,31 @@ What store does the game come from? GOG? Epic (egs)? Battlenet? Amazon?
 
 3\. Determine the CODENAME for the game depending on it's store.
 
--   For EGS use the 'Namespace' value for the game found here:
+-   For EGS use the 'App Name' value for the game under the Builds section:
 
     https://egdata.app
 
     Ex. Borderlands 3:
 
-    Namespace    catnip
+    `App Name`    `Catnip`
 
-    Codename would be `catnip`
+-   In the event that the 'App Name' cannot be found under the Builds section, use the `appId` value. 
 
-    Ex. Fall Guys
+    https://egdata.app
 
-    `-com.epicgames.launcher://apps/0a2d9f6403244d12969e11da6713137b?action=launch`
+    Ex. The Last of Us™ Part I
 
-    Codename would be `0a2d9f6403244d12969e11da6713137b`
+    https://egdata.app/offers/0f0fe55f8a464f3f992fa31c0e2810d7
+
+    From the game's offer page, navigate to the correct game under the Items section:
+
+    https://egdata.app/offers/0f0fe55f8a464f3f992fa31c0e2810d7/items
+
+    Finally, from the game's item page and using your web browser, view the page source for the `appId`.
+
+    https://egdata.app/items/e9c47d47c2ac44f3a032e9d645096535
+
+    `7e988ba04889404197fdf06c994326ed`
 
 -   For GOG go to https://www.gogdb.org/, search the game title, find ID correlating to the title and Type 'Game'.
 
