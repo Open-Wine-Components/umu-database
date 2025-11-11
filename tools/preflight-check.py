@@ -4,7 +4,7 @@ import sys
 import os
 import csv
 
-SUPPORTED_STORES = ["amazon", "battlenet", "none", "egs", "ubisoft", "ea", "humble", "itchio", "steam", "gog", "zoomplatform"]
+SUPPORTED_STORES = ["amazon", "battlenet", "none", "egs", "ubisoft", "ea", "humble", "itchio", "gog", "zoomplatform"]
 
 def main():
     file = sys.argv[1]
