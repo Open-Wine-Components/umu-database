@@ -143,7 +143,7 @@ What store does the game come from? GOG? Epic (egs)? Battlenet? Amazon?
 
 -   For games not on Steam the second part of the ID should have at least one letter, but preferably be a phrase that's easily understandable simply so that it's not parsed as a Steam ID. We perform a check on the second part of the umu ID to determine if it's numeric or not. If it is, that part is sent as the Steam ID to Proton. Protonfixes prioritizes the UMU_ID environment variable, but Proton itself uses SteamAppId for some game-specific fixes directly. So, if say the game As Dusk Falls has both protonfixes and an official Proton-specific fix. It's umu ID would be umu-1341820, which gets passed to protonfixes, while the second part of that (1341820) gets parsed and passed as the app ID (SteamAppId). This way, it allows both Valve's fixes in their proton script (and their wine code) to work as well as our protonfixes.
 
-    Ex from proton:
+    Example from upstream Proton:
 
 ```\
            if appid in [
@@ -162,7 +162,7 @@ What store does the game come from? GOG? Epic (egs)? Battlenet? Amazon?
 
 -   You can have duplicate records for the same game where the UMU_ID for the game may be different across storefronts. The only time the umu ID will be the same is if a Steam version exists.
 
-    Example (no steam version):
+    Example (no Steam version):
 
 ```\
 TITLE                   STORE    CODENAME                              UMU_ID                                 NOTE (Optional)
@@ -172,16 +172,15 @@ Genshin Impact          none     none               
 
 -   The protonfix for umu-7d690c122fde4c60bed85405f343ad10 should be a symbolic link to the protonfix for umu-genshin if they require the same fixes. They -can- be independent -IF- they require different fixes or if it's a new single title and no fix exists
 
-    Example (steam version):
+    Example (game that is also sold on Steam):
 
 ```\
 TITLE                   STORE    CODENAME                              UMU_ID                                 NOTE (Optional)
-Red Dead Redemption 2   steam    none                                  umu-1174180
 Red Dead Redemption 2   egs      Heather                               umu-1174180
 Red Dead Redemption 2   none     none                                  umu-1174180                            standalone
 ```
 
--   The same applies here. Each different non-Steam version protonfix should be a symbolic link to the Steam version protonfix unless it requires different fixes.
+-   The same applies here. Each different non-Steam version protonfix should be a symbolic link to the Steam version by its UMU_ID protonfix unless it requires different fixes.
 
 If no store and/or codename is specified it will search instead search the 'umu' gamefixes directory instead of the store directory for the umu ID.
 
