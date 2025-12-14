@@ -47,7 +47,9 @@ if (get_method() === 'GET') {
     $title = isset($_GET['title']) ? $_GET['title'] : null;
 
     // Prepare and execute the SQL statement
-    $sql = "SELECT g.title, gr.umu_id, g.acronym, gr.codename, gr.store, gr.notes FROM gamerelease gr INNER JOIN game g ON g.id = gr.umu_id";
+    $sql = "SELECT g.title, gr.umu_id, g.acronym, gr.codename, gr.store, gr.exe_string, gr.notes
+    FROM gamerelease gr
+    INNER JOIN game g ON g.id = gr.umu_id";
     $params = [];
 
     if ($codename !== null) {
@@ -102,14 +104,15 @@ if (get_method() === 'GET') {
                 'acronym' => $result['acronym'],
                 'codename' => $result['codename'],
                 'store' => $result['store'],
+                'exe_string' => $result['exe_string'],
                 'notes' => $result['notes']
             ];
         }
     }
+
     // Send the response
     send_response($response);
 } else {
     send_response(['error' => 'Invalid request'], 400);
 }
 ?>
-

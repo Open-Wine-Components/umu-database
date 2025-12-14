@@ -8,5 +8,6 @@ CREATE TABLE gamerelease (
     umu_id VARCHAR(255) REFERENCES game(id),
     codename VARCHAR(255),
     store VARCHAR(255),
+    exe_string VARCHAR(255),
     notes TEXT
 );
