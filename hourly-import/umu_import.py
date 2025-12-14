@@ -2,56 +2,104 @@ import pandas as pd
 from mysql.connector import connect, Error
 from umu_import_credentials import DB_HOST, DB_NAME, DB_USER, DB_PASSWORD
 
-try:
-    connection = connect(host=DB_HOST,
-                         database=DB_NAME,
-                         user=DB_USER,
-                         password=DB_PASSWORD)
-    if connection.is_connected():
-        db_Info = connection.get_server_info()
-        print("Connected to MySQL Server version ", db_Info)
-except Error as e:
-    print("Error while connecting to MySQL", e)
+CSV_URL = "https://raw.githubusercontent.com/Open-Wine-components/umu-database/main/umu-database.csv"
 
-url = "https://raw.githubusercontent.com/Open-Wine-components/umu-database/main/umu-database.csv"
-df = pd.read_csv(url)
-df2 = df.astype(object).where(pd.notnull(df), None)
+def main():
+    try:
+        connection = connect(
+            host=DB_HOST,
+            database=DB_NAME,
+            user=DB_USER,
+            password=DB_PASSWORD,
+        )
+        print("Connected to MySQL Server version", connection.get_server_info())
 
+        df = pd.read_csv(CSV_URL)
+        df = df.astype(object).where(pd.notnull(df), None)
 
-cursor = connection.cursor()
-for index, row in df2.iterrows():
+        # Build unique game rows by UMU_ID (first occurrence wins)
+        games_df = (
+            df[["UMU_ID", "TITLE", "COMMON ACRONYM (Optional)"]]
+            .drop_duplicates(subset=["UMU_ID"], keep="first")
+        )
+        game_rows = [
+            (r["UMU_ID"], r["TITLE"], r["COMMON ACRONYM (Optional)"])
+            for _, r in games_df.iterrows()
+        ]
 
-    # Check if 'title' exists in 'game'
-    cursor.execute("SELECT * FROM game WHERE id=%s", (row['UMU_ID'],))
-    result = cursor.fetchone()
-    if result:
-        # Check if 'umu_id', 'codename', and 'store' exist in 'gamerelease'
-        cursor.execute("SELECT * FROM gamerelease WHERE umu_id=%s AND codename=%s AND store=%s", (row['UMU_ID'], row['CODENAME'], row['STORE']))
-        result = cursor.fetchone()
-        if not result:
-            # Add 'umu_id', 'codename', 'store', and 'notes' to 'gamerelease'
-            sql_insert_query = """ INSERT INTO gamerelease (umu_id,codename,store,notes) VALUES (%s,%s,%s,%s)"""
-            record_to_insert = (row['UMU_ID'], row['CODENAME'], row['STORE'], row['NOTE (Optional)'])
-            #print(sql_insert_query)
-            print(record_to_insert)
-            cursor.execute(sql_insert_query, record_to_insert)
-    else:
-        # Add 'title' and 'acronym' to 'game', only add 'acronym' if not empty.
-        sql_insert_query = """INSERT INTO game (id, title, acronym) VALUES (%s, %s, %s)"""
-        record_to_insert = (row['UMU_ID'], row['TITLE'], row['COMMON ACRONYM (Optional)'])
-        #print(sql_insert_query)
-        print(record_to_insert)
-        cursor.execute(sql_insert_query, record_to_insert)
+        # Build release rows (all rows)
+        # exe_string may be missing from older CSVs; .get() keeps it safe.
+        release_rows = [
+            (
+                r["UMU_ID"],
+                r["CODENAME"],
+                r["STORE"],
+                r.get("EXE_STRING (Optional)"),
+                r["NOTE (Optional)"],
+            )
+            for _, r in df.iterrows()
+        ]
 
-        # Add 'umu_id', 'codename', 'store', and 'notes' to 'gamerelease'. Only add 'notes' if not empty.
-        sql_insert_query = """INSERT INTO gamerelease (umu_id, codename, store, notes) VALUES (%s, %s, %s, %s)"""
-        record_to_insert = (row['UMU_ID'], row['CODENAME'], row['STORE'], row['NOTE (Optional)'])
-        #print(sql_insert_query)
-        print(record_to_insert)
-        cursor.execute(sql_insert_query, record_to_insert)
+        cursor = connection.cursor()
 
-connection.commit()
+        try:
+            connection.start_transaction()
 
-cursor.close()
-connection.close()
-print("MySQL connection is closed")
+            # Drop & recreate tables
+            cursor.execute("SET FOREIGN_KEY_CHECKS=0;")
+            cursor.execute("DROP TABLE IF EXISTS gamerelease;")
+            cursor.execute("DROP TABLE IF EXISTS game;")
+            cursor.execute("SET FOREIGN_KEY_CHECKS=1;")
+
+            cursor.execute("""
+                CREATE TABLE game (
+                    id VARCHAR(255) PRIMARY KEY,
+                    title VARCHAR(255) NOT NULL,
+                    acronym VARCHAR(255)
+                );
+            """)
+
+            cursor.execute("""
+                CREATE TABLE gamerelease (
+                    umu_id VARCHAR(255),
+                    codename VARCHAR(255),
+                    store VARCHAR(255),
+                    exe_string VARCHAR(255),
+                    notes TEXT,
+                    CONSTRAINT fk_gamerelease_game
+                        FOREIGN KEY (umu_id) REFERENCES game(id)
+                );
+            """)
+
+            # Insert data
+            cursor.executemany(
+                "INSERT INTO game (id, title, acronym) VALUES (%s, %s, %s)",
+                game_rows
+            )
+
+            cursor.executemany(
+                """
+                INSERT INTO gamerelease (umu_id, codename, store, exe_string, notes)
+                VALUES (%s, %s, %s, %s, %s)
+                """,
+                release_rows
+            )
+
+            connection.commit()
+            print(f"Rebuilt DB. Imported {len(game_rows)} games and {len(release_rows)} releases.")
+
+        except Exception as e:
+            connection.rollback()
+            raise
+
+        cursor.close()
+        connection.close()
+        print("MySQL connection is closed")
+
+    except Error as e:
+        print("Error while connecting to MySQL:", e)
+    except Exception as e:
+        print("Import failed:", e)
+
+if __name__ == "__main__":
+    main()
