@@ -76,12 +76,14 @@ if (get_method() === 'GET') {
     }
 
     if ($title !== null) {
-        if ($store !== null) {
-            $sql .= " AND g.title = :title";
+        $titleCondition = "g.title LIKE :title";
+
+        if ($codename !== null || $store !== null || $umu_id !== null) {
+            $sql .= " AND " . $titleCondition;
         } else {
-            $sql .= " WHERE g.title = :title AND gr.store = 'none'";
+            $sql .= " WHERE " . $titleCondition;
         }
-        $params[':title'] = $title;
+        $params[':title'] = "%" . $title . "%";
     }
 
     $stmt = $pdo->prepare($sql);
