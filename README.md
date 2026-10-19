@@ -191,3 +191,5 @@ If no store and/or codename is specified it will search instead search the 'umu'
 6\. Optionally include a note:
 
 -   For example, [_Genshin Impact_](https://genshin.hoyoverse.com/en/) has two standalone versions, namely one from Hoyo and one from PlayPC. Leave a note stating which one it is.
+
+7\. Run `./tools/preflight-check.py` to make sure your addition is valid. A [pre-commit](<https://pre-commit.com/>) hook to do this is available as well.

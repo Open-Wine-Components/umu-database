@@ -1,0 +1,10 @@
+repos:
+    - repo: local
+      hooks:
+          - id: check-db
+            name: Check database validity
+            entry: ./tools/preflight-check.py
+            stages:
+                - pre-commit
+            language: python
+            files: ^umu-database\.csv$
